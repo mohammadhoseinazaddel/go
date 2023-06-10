@@ -1,0 +1,33 @@
+<%: func PostHandler(post datalayer.Post, w io.Writer) %>
+
+<%~ "layout.html" %>
+
+<%@ body { %>
+    <div class="col-12 col-md-12 ">
+        <div id="content">
+            <div class="card mt-4 ">
+                <div class="card-body text-primary">
+
+                    <div class="row">
+                        <div class="col-9">
+                            <h4><%= post.Title %></h4>
+                        </div>
+                        <div class="col-3">
+                            <span><%= time.ToPersian(post.CreateDate) %></span>
+                        </div>
+                    </div>
+                    <hr class="mt-0">
+                    <img class="img-fluid img-thumbnail mx-auto d-block" src="/Images/Post/<%= post.Image %>" alt="">
+                    <br>
+                    <div id="contentDiv">
+                        <p class="text-medium text-justify">
+                                <%= post.ShortDesc %>  
+                                <%= post.LongDesc %>  
+                        </p>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+<% } %>

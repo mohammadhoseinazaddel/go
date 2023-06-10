@@ -1,0 +1,66 @@
+<%: func PostListHandler(posts []datalayer.Post, groups []datalayer.Group, w io.Writer) %>
+
+<%~ "layout.html" %>
+
+<%@ body { %>
+    <div class="col-12 col-md-4 ">
+        <div class="card">
+            <div class="card-header">
+                دسته بندی ها
+            </div>
+            <ul class="list-group list-group-flush text-primary p-0">
+                <% for _, g := range groups { %>
+                    <li class="list-group-item">
+                        <a class="text-primary" href="/Group/<%=u g.ID %>"> <%= g.Title %></a>
+                    </li>
+                <% } %>
+            </ul>
+        </div>
+    </div>
+    <div class="col-12 col-md-8 ">
+        <% for _, p := range posts { %>
+        <div id="content">
+            <div class="card mb-4 ">
+                <div class="card-body text-primary">
+                    <h4> <%= p.Title %></h4>
+                    <hr>
+                    <img class="img-fluid img-thumbnail mx-auto d-block" src="/Images/Post/<%= p.Image %>" alt="">
+                    <p class="text-medium text-justify">
+                    <%= p.ShortDesc %>    
+                    </p>
+                    <hr>
+                    <div class="row">
+                        <div class="text-medium col">
+                            <!-- <span><%=v p.CreateDate %> </span> -->
+                            <span><%= time.ToPersian(p.CreateDate) %> </span>
+                        </div>
+                        <div class="col">
+                            <a href="/Post/<%=u p.ID %>" class="btn btn-sm btn-outline-primary float-left">ادامه مطلب</a>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <% } %>
+        <ul class="pagination mx-auto text-primary">
+
+            <li class="page-item active">
+                <a class="page-link" asp-action="Index" asp-route-pageId="1">1</a>
+            </li>
+
+            <li class="page-item">
+                <a class="page-link" asp-action="Index" asp-route-pageId="@(Model.PageCount)">2</a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" asp-action="Index" asp-route-pageId="@(Model.PageCount)">3</a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" asp-action="Index" asp-route-pageId="@(Model.PageCount)">4</a>
+            </li>
+
+        </ul>
+
+    </div>
+<% } %>
